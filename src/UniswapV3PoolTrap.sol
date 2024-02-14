@@ -10,20 +10,22 @@ interface IUniswapV3PoolState {
 contract UniswapV3PoolTrap {
     struct CollectOutput {
         // Define data collection points here
-
         uint128 liquidity;
     }
 
     uint8 public constant MIN_DATA_LEN = 2;
+
+    address public constant ethUsdcPool = 0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640;
     IUniswapV3PoolState public pool;
 
-    constructor(address poolAddress) {
-        pool = IUniswapV3PoolState(poolAddress);
+    constructor() {
+        // Initialization logic is executed once per block. Any state changes here are persisted
+        // for the duration of the 'collect' function call.
+        pool = IUniswapV3PoolState(ethUsdcPool);
     }
 
     function collect() external view returns (CollectOutput memory) {
         // Data collection and monitoring logic goes here
-
         uint128 liquidity = pool.liquidity();
         return CollectOutput({liquidity: liquidity});
     }
