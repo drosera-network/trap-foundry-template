@@ -1,25 +1,39 @@
 # Drosera Trap Foundry Template
 
-For quickly bootstrapping a new Drosera project.
+This repo is for quickly bootstrapping a new Drosera project. It includes instructions for creating your first trap, deploying it to the Drosera network, and updating it on the fly.
 
 [![view - Documentation](https://img.shields.io/badge/view-Documentation-blue?style=for-the-badge)](https://dev.drosera.io "Project documentation")
 
-## Overview
-This template shows an example of monitoring a Uniswap V3 liquidity pool. The UniswapV3PoolTrap smart contract checks to see if the balance of the pool has changed by more than 20% from the previous block.
-
-## Features
-- example trap contract 
-- example trap test
-
-## Getting Started
+## Configure dev environment
 
 ```bash
-mkdir my-drosera-trap
-cd my-drosera-trap
-forge init trap-foundry-template
+# install forge
+rustup update stable
+curl -L https://foundry.paradigm.xyz | bash
+
+# install vscode (optional)
+# - add solidity extension JuanBlanco.solidity
+
+# install drosera-cli
+TODO: Add instructions for installing drosera-cli
+```
+
+open the VScode preferences and Select `Soldity: Change workpace compiler version (Remote)`
+
+Select version `0.8.12`
+
+## User Quick Start Guide
+
+[User Quick Start Guide](./UserQuickStart.md)
+
+## Build Traps
+
+```bash
+forge build
 ```
 
 ## Testing
+
 ```bash
 forge test
 ```

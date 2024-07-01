@@ -1,0 +1,16 @@
+ethereum_rpc = "http://localhost:8545"
+drosera_rpc = "http://localhost:30303"
+eth_chain_id = 17000
+drosera_address = ""
+private_key = ""
+
+[traps]
+
+[traps.mytrap]
+path = "out/HelloWorldTrap.sol/HelloWorldTrap.json"
+response_contract = ""
+response_function = ""
+cooldown_period_blocks = 1000000000
+min_number_of_operators = 1
+max_number_of_operators = 100
+block_sample_size = 10
