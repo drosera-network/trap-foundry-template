@@ -41,7 +41,7 @@ contract HelloWorldTrapTest is Test {
     }
 
     function test_HelloWorldTrap() public {
-        CollectOutput[] memory dataPoints = new CollectOutput[](numBlocks);
+        bytes[] memory dataPoints = new bytes[](numBlocks);
 
         // Collect data points starting from the current block minus 'numBlocks'
         for (uint8 i = 0; i < numBlocks; i++) {
@@ -49,7 +49,7 @@ contract HelloWorldTrapTest is Test {
             vm.selectFork(forkIds[i]);
             dataPoints[i] = new HelloWorldTrap().collect();
         }
-        bool isValid = new HelloWorldTrap().isValid(dataPoints);
+        (bool isValid, ) = new HelloWorldTrap().isValid(dataPoints);
         assertTrue(isValid);
     }
 }
