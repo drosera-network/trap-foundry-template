@@ -18,17 +18,17 @@ contract AlertTrapTest is Test {
     }
 
     function test_AlertTrapNotTriggered() public {
-        CollectOutput[] memory dataPoints = new CollectOutput[](numBlocks);
+        bytes[] memory dataPoints = new bytes[](numBlocks);
 
         // Collect data points starting from the current block
         dataPoints[0] = new AlertTrap().collect();
-        bool isValid = new AlertTrap().isValid(dataPoints);
+        (bool isValid, ) = new AlertTrap().isValid(dataPoints);
 
         assertTrue(isValid);
     }
 
     function test_AlertTrapTriggered() public {
-        CollectOutput[] memory dataPoints = new CollectOutput[](numBlocks);
+        bytes[] memory dataPoints = new bytes[](numBlocks);
 
         AlertTrap trap = new AlertTrap();
 
@@ -37,7 +37,7 @@ contract AlertTrapTest is Test {
 
         // Collect data points starting from the current block
         dataPoints[0] = trap.collect();
-        bool isValid = trap.isValid(dataPoints);
+        (bool isValid, ) = trap.isValid(dataPoints);
 
         assertFalse(isValid);
     }
