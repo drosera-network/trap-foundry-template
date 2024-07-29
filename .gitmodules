@@ -7,3 +7,6 @@
 [submodule "lib/drosera-lib"]
 	path = lib/drosera-lib
 	url = https://github.com/drosera-network/drosera-lib
+[submodule "my-drosera-trap/trap-foundry-template/lib/drosera-lib"]
+	path = my-drosera-trap/trap-foundry-template/lib/drosera-lib
+	url = https://github.com/drosera-network/drosera-lib
