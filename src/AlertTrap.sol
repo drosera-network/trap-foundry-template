@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.12;
 
-import {ITrap} from "./interfaces/ITrap.sol";
+import {ITrap} from "drosera-lib/interfaces/ITrap.sol";
 
 struct CollectOutput {
     uint256 isTriggered;
