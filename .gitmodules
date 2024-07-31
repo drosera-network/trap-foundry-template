@@ -7,3 +7,6 @@
 [submodule "lib/contracts"]
 	path = lib/contracts
 	url = https://github.com/drosera-network/contracts
+[submodule "my-drosera-trap/trap-foundry-template/lib/contracts"]
+	path = my-drosera-trap/trap-foundry-template/lib/contracts
+	url = https://github.com/drosera-network/contracts
