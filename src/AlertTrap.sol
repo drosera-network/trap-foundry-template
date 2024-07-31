@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.12;
 
-import {ITrap} from "drosera-lib/interfaces/ITrap.sol";
+import {ITrap} from "drosera-contracts/interfaces/ITrap.sol";
 
 struct CollectOutput {
     uint256 isTriggered;
@@ -20,17 +20,17 @@ contract AlertTrap is ITrap{
             }));
     }
 
-    function isValid(
-        bytes[] calldata dataPoints
+    function shouldRespond(
+        bytes[] calldata data
     ) external pure returns (bool, bytes memory) {
-        for (uint256 i = 0; i < dataPoints.length; i++) {
-            CollectOutput memory output = abi.decode(dataPoints[i], (CollectOutput));
+        for (uint256 i = 0; i < data.length; i++) {
+            CollectOutput memory output = abi.decode(data[i], (CollectOutput));
             if (output.isTriggered != 1) {
-                return (false, bytes(""));
+                return (true, bytes(""));
             }
         }
 
-        return (true, bytes(""));
+        return (false, bytes(""));
     }
 
     // NOTE: Set the block number to a specific block number in the future

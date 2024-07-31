@@ -22,9 +22,9 @@ contract AlertTrapTest is Test {
 
         // Collect data points starting from the current block
         dataPoints[0] = new AlertTrap().collect();
-        (bool isValid, ) = new AlertTrap().isValid(dataPoints);
+        (bool shouldRespond, ) = new AlertTrap().shouldRespond(dataPoints);
 
-        assertTrue(isValid);
+        assertTrue(!shouldRespond);
     }
 
     function test_AlertTrapTriggered() public {
@@ -37,8 +37,8 @@ contract AlertTrapTest is Test {
 
         // Collect data points starting from the current block
         dataPoints[0] = trap.collect();
-        (bool isValid, ) = trap.isValid(dataPoints);
+        (bool shouldRespond, ) = trap.shouldRespond(dataPoints);
 
-        assertFalse(isValid);
+        assertTrue(shouldRespond);
     }
 }

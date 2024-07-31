@@ -49,7 +49,7 @@ contract HelloWorldTrapTest is Test {
             vm.selectFork(forkIds[i]);
             dataPoints[i] = new HelloWorldTrap().collect();
         }
-        (bool isValid, ) = new HelloWorldTrap().isValid(dataPoints);
-        assertTrue(isValid);
+        (bool shouldRespond, ) = new HelloWorldTrap().shouldRespond(dataPoints);
+        assertTrue(!shouldRespond);
     }
 }
