@@ -7,32 +7,73 @@ This repo is for quickly bootstrapping a new Drosera project. It includes instru
 ## Configure dev environment
 
 ```bash
-# install forge
-rustup update stable
 curl -L https://foundry.paradigm.xyz | bash
+foundryup
 
 # install vscode (optional)
 # - add solidity extension JuanBlanco.solidity
 
 # install drosera-cli
-TODO: Add instructions for installing drosera-cli
+curl -L https://app.drosera.io/install | bash
+droseraup
 ```
 
 open the VScode preferences and Select `Soldity: Change workpace compiler version (Remote)`
 
 Select version `0.8.12`
 
-## User Quick Start Guide
+## Quick Start
 
-[User Quick Start Guide](./UserQuickStart.md)
+### Hello World Trap
 
-## Build Traps
+The drosera.toml file is configured to deploy a simple "Hello, World!" trap. Ensure the drosera.toml file is set to the following configuration:
 
-```bash
-forge build
+```toml
+response_contract = "0xdA890040Af0533D98B9F5f8FE3537720ABf83B0C"
+response_function = "helloworld(string)"
 ```
 
+To deploy the trap, run the following commands:
+
+```bash
+# Compile the Trap
+forge build
+
+# Deploy the Trap
+DROSERA_PRIVATE_KEY=0x.. drosera apply
+```
+
+After successfully deploying the trap, the CLI will add an `address` field to the `drosera.toml` file.
+
+Congratulations! You have successfully deployed your first trap!
+
+### Response Trap
+
+You can then update the trap by changing its logic and recompling it or changing the path field in the `drosera.toml` file to point to the Response Trap.
+
+The Response Trap is designed to trigger a response at a specific block number. To test the Response Trap, pick a future block number and update the Response Trap.
+Specify a response contract address and function signature in the drosera.toml file to the following:
+
+```toml
+response_contract = "0xdA890040Af0533D98B9F5f8FE3537720ABf83B0C"
+response_function = "responseCallback(uint256)"
+```
+
+Finally, deploy the Response Trap by running the following commands:
+
+```bash
+# Compile the Trap
+forge build
+
+# Deploy the Trap
+DROSERA_PRIVATE_KEY=0x.. drosera apply
+```
+
+> Note: The `DROSERA_PRIVATE_KEY` environment variable can be used to deploy traps. You can also set it in the drosera.toml file as `private_key = "0x.."`.
+
 ## Testing
+
+Example tests are included in the `tests` directory. They simulate how Drosera Operators execute traps and determine if a response should be triggered. To run the tests, execute the following command:
 
 ```bash
 forge test
