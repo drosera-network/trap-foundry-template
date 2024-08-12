@@ -1,8 +1,7 @@
-ethereum_rpc = "http://localhost:8545"
-drosera_rpc = "http://localhost:30303"
+ethereum_rpc = "https://ethereum-holesky-rpc.publicnode.com"
+drosera_rpc = "https://seed-node.testnet.drosera.io"
 eth_chain_id = 17000
-drosera_address = ""
-private_key = ""
+drosera_address = "0xea08f7d533C2b9A62F40D5326214f39a8E3A32F8"
 
 [traps]
 
@@ -10,7 +9,7 @@ private_key = ""
 path = "out/HelloWorldTrap.sol/HelloWorldTrap.json"
 response_contract = ""
 response_function = ""
-cooldown_period_blocks = 1000000000
+cooldown_period_blocks = 33
 min_number_of_operators = 1
-max_number_of_operators = 100
+max_number_of_operators = 2
 block_sample_size = 10
