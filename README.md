@@ -16,7 +16,7 @@ foundryup
 # - add solidity extension JuanBlanco.solidity
 
 # install drosera-cli
-curl https://raw.githubusercontent.com/drosera-network/releases/feat/droseraup/install/install | bash
+curl -L https://app.drosera.io/install | bash
 droseraup
 ```
 
