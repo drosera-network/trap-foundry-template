@@ -12,7 +12,9 @@ contract HelloWorldTrapTest is Test {
 
     function setUp() public {
         uint256 latestIndex = numBlocks - 1;
-        uint256 latestForkId = vm.createSelectFork(vm.rpcUrl("mainnet"));
+        uint256 latestForkId = vm.createSelectFork(
+            "https://ethereum-holesky-rpc.publicnode.com"
+        );
         blockNumber = block.number;
         forkIds[latestIndex] = latestForkId;
 
@@ -34,7 +36,7 @@ contract HelloWorldTrapTest is Test {
 
         for (uint8 i = 0; i < latestIndex; i++) {
             forkIds[i] = vm.createFork(
-                vm.rpcUrl("mainnet"),
+                "https://ethereum-holesky-rpc.publicnode.com",
                 blockNumber - latestIndex + i
             );
         }

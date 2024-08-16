@@ -2,35 +2,37 @@
 pragma solidity ^0.8.12;
 
 import {Test} from "forge-std/Test.sol";
-import {CollectOutput, AlertTrap} from "../src/AlertTrap.sol";
+import {CollectOutput, ResponseTrap} from "../src/ResponseTrap.sol";
 
-// forge test --contracts ./test/AlertTrap.t.sol -vvvv
-contract AlertTrapTest is Test {
+// forge test --contracts ./test/ResponseTrap.t.sol -vvvv
+contract ResponseTrapTest is Test {
     uint8 numBlocks = 1;
     uint256 blockNumber;
     uint256[] forkIds = new uint256[](numBlocks);
 
     function setUp() public {
         uint256 latestIndex = numBlocks - 1;
-        uint256 latestForkId = vm.createSelectFork(vm.rpcUrl("mainnet"));
+        uint256 latestForkId = vm.createSelectFork(
+            "https://ethereum-holesky-rpc.publicnode.com"
+        );
         blockNumber = block.number;
         forkIds[latestIndex] = latestForkId;
     }
 
-    function test_AlertTrapNotTriggered() public {
+    function test_ResponseTrapNotTriggered() public {
         bytes[] memory dataPoints = new bytes[](numBlocks);
 
         // Collect data points starting from the current block
-        dataPoints[0] = new AlertTrap().collect();
-        (bool shouldRespond, ) = new AlertTrap().shouldRespond(dataPoints);
+        dataPoints[0] = new ResponseTrap().collect();
+        (bool shouldRespond, ) = new ResponseTrap().shouldRespond(dataPoints);
 
         assertTrue(!shouldRespond);
     }
 
-    function test_AlertTrapTriggered() public {
+    function test_ResponseTrapTriggered() public {
         bytes[] memory dataPoints = new bytes[](numBlocks);
 
-        AlertTrap trap = new AlertTrap();
+        ResponseTrap trap = new ResponseTrap();
 
         // FOR TESTING PURPOSES: Set the trigger block number to the next block for testing purposes
         trap.setTriggerBlockNumber(block.number);

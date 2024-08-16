@@ -23,7 +23,7 @@ contract HelloWorldTrap is ITrap{
                 keccak256(abi.encodePacked(output.text)) !=
                 keccak256(abi.encodePacked("Hello World!"))
             ) {
-                return (true, bytes(""));
+                return (true, bytes(abi.encode(output.text)));
             }
         }
         return (false, bytes(""));
