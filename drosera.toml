@@ -12,4 +12,4 @@ response_function = "helloworld(string)"
 cooldown_period_blocks = 33
 min_number_of_operators = 1
 max_number_of_operators = 2
-block_sample_size = 10
+block_sample_size = 5
