@@ -18,8 +18,8 @@ contract HelloWorldTrapTest is Test {
         blockNumber = block.number;
         forkIds[latestIndex] = latestForkId;
 
-        // [0] index is oldest block (T0)
-        // [numBlocks - 1] index is the most recent block (T9)
+        // [0] index is the most recent block (T0)
+        // [numBlocks - 1] index is the oldest block (T9)
         // ---------------------------------------
         // [9]                               /
         // [8]                              /
@@ -31,13 +31,13 @@ contract HelloWorldTrapTest is Test {
         // [2]   /
         // [1]  /
         // [0] [1] [2] [3] [4] [5] [6] [7] [8] [9]
-        //                 Time (T) ->
+        //                  <- Time (T)
         // ---------------------------------------
 
         for (uint8 i = 0; i < latestIndex; i++) {
             forkIds[i] = vm.createFork(
                 "https://ethereum-holesky-rpc.publicnode.com",
-                blockNumber - latestIndex + i
+                blockNumber - i
             );
         }
     }
@@ -47,7 +47,7 @@ contract HelloWorldTrapTest is Test {
 
         // Collect data points starting from the current block minus 'numBlocks'
         for (uint8 i = 0; i < numBlocks; i++) {
-            // Advance to the next block
+            // Advance to an older block
             vm.selectFork(forkIds[i]);
             dataPoints[i] = new HelloWorldTrap().collect();
         }
