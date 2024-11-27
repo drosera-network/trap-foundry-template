@@ -10,6 +10,13 @@ This repo is for quickly bootstrapping a new Drosera project. It includes instru
 curl -L https://foundry.paradigm.xyz | bash
 foundryup
 
+# The trap-foundry-template utilizes node modules for dependency management
+# install Bun (optional)
+curl -fsSL https://bun.sh/install | bash
+
+# install node modules
+bun install
+
 # install vscode (optional)
 # - add solidity extension JuanBlanco.solidity
 
@@ -78,4 +85,3 @@ Example tests are included in the `tests` directory. They simulate how Drosera O
 ```bash
 forge test
 ```
-
