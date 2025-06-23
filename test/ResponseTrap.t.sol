@@ -13,7 +13,7 @@ contract ResponseTrapTest is Test {
     function setUp() public {
         uint256 latestIndex = numBlocks - 1;
         uint256 latestForkId = vm.createSelectFork(
-            "https://ethereum-holesky-rpc.publicnode.com"
+            "https://ethereum-hoodi-rpc.publicnode.com"
         );
         blockNumber = block.number;
         forkIds[latestIndex] = latestForkId;
