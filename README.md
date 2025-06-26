@@ -62,7 +62,7 @@ The Response Trap is designed to trigger a response at a specific block number. 
 Specify a response contract address and function signature in the drosera.toml file to the following:
 
 ```toml
-response_contract = "0xdA890040Af0533D98B9F5f8FE3537720ABf83B0C"
+response_contract = "0x183D78491555cb69B68d2354F7373cc2632508C7"
 response_function = "responseCallback(uint256)"
 ```
 
