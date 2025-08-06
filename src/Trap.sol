@@ -69,14 +69,28 @@ abstract contract Trap {
     ) external pure virtual returns (bool, bytes memory);
 
 
-    function eventLogFilters() public view virtual returns (EventFilter[] memory);
-
+    /**
+     * @notice Returns the event log filters for the trap.
+     * @return An array of EventFilter objects.
+     */
+    function eventLogFilters() public view virtual returns (EventFilter[] memory) {
+        EventFilter[] memory filters = new EventFilter[](0);
+        return filters;
+    }
 
     /**
-     * @notice Sets the event logs for the trap.
-     * @param logs The logs to set.
+     * @notice Returns the version of the Trap.
+     * @return The version as a string.
      */
-    function setEventLogs(EventLog[] memory logs) public {
+    function version() public pure returns (string memory) {
+        return "2.0";
+    }
+
+    /**
+     * @notice Sets the event logs in the trap.
+     * @param logs An array of EventLog objects to set.
+     */
+    function setEventLogs(EventLog[] calldata logs) public {
        EventLog[] storage storageArray = eventLogs;
       
         // Set new logs
@@ -90,6 +104,10 @@ abstract contract Trap {
     }
 
 
+    /**
+     * @notice Gets the event logs stored in the trap.
+     * @return An array of EventLog objects.
+     */ 
     function getEventLogs() public view returns (EventLog[] memory) {
         EventLog[] storage storageArray = eventLogs;
         EventLog[] memory logs = new EventLog[](storageArray.length);
