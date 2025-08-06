@@ -1,22 +1,22 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.12;
 
-import {ITrap} from "drosera-contracts/interfaces/ITrap.sol";
+import {Trap} from "drosera-contracts/Trap.sol";
 
 struct CollectOutput {
     string text;
 }
 
-contract HelloWorldTrap is ITrap{
+contract HelloWorldTrap is Trap{
     constructor() {}
 
-    function collect() external view returns (bytes memory) {
+    function collect() external override view returns (bytes memory) {
         return abi.encode(CollectOutput({text: "Hello World!"}));
     }
 
     function shouldRespond(
         bytes[] calldata data
-    ) external pure returns (bool, bytes memory) {
+    ) external override pure returns (bool, bytes memory) {
         for (uint256 i = 0; i < data.length; i++) {
             CollectOutput memory output = abi.decode(data[i], (CollectOutput));
             if (
