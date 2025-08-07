@@ -28,7 +28,7 @@ contract TransferEventTrap is Trap {
 
             // Check if the log matches the filter for Transfer events
             if (filters[0].matches(log)) {
-                uint256 amount = abi.decode(log.data, (uint256));
+                (,, uint256 amount) = parseTransferEvent(log);
                 totalTransferAmount += amount;
             }
         }
@@ -62,5 +62,14 @@ contract TransferEventTrap is Trap {
         });
 
         return filters;
+    }
+
+    function parseTransferEvent(
+        EventLog memory log
+    ) internal pure returns (address from, address to, uint256 amount) {
+        require(log.topics.length == 3, "Invalid Transfer event log");
+        from = address(uint160(uint256(log.topics[1])));
+        to = address(uint160(uint256(log.topics[2])));
+        amount = abi.decode(log.data, (uint256));
     }
 }
