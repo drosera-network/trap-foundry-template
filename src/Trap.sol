@@ -48,6 +48,15 @@ library EventFilterLib {
 
         return true;
     }
+
+    function matches_signature(
+        EventFilter memory filter,
+        EventLog memory log
+    ) internal pure returns (bool) {
+        // Check if the signature matches and the contract address is zero
+        return topic0(filter) == log.topics[0] && 
+               filter.contractAddress == address(0);
+    }
 }
 
 abstract contract Trap {
