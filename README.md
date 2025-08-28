@@ -78,6 +78,12 @@ DROSERA_PRIVATE_KEY=0x.. drosera apply
 
 > Note: The `DROSERA_PRIVATE_KEY` environment variable can be used to deploy traps. You can also set it in the drosera.toml file as `private_key = "0x.."`.
 
+
+### Transfer Event Trap
+The TransferEventTrap is an example of how a Trap can parse event logs from a block and respond to a specific ERC-20 token transfer events.
+
+To deploy the Transfer Event Trap, uncomment the `transfer_event_trap` section in the `drosera.toml` file. Add the token address to the `tokenAddress` constant in the `TransferEventTrap.sol` file and then deploy the trap.
+
 ## Testing
 
 Example tests are included in the `tests` directory. They simulate how Drosera Operators execute traps and determine if a response should be triggered. To run the tests, execute the following command:
