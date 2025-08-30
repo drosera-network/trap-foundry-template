@@ -5,6 +5,6 @@
     "forge-std": "github:foundry-rs/forge-std#v1.8.1"
   },
   "dependencies": {
-    "contracts": "https://github.com/drosera-network/contracts"
+    "drosera-contracts": "https://github.com/drosera-network/contracts"
   }
 }
