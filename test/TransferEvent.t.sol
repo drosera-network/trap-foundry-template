@@ -58,7 +58,7 @@ contract TransferEventTrapTest is Test {
         assertEq(string(data), "Transfer amount exceeds threshold", "Response message should match expected");
     }
 
-    // Neeeded to avoid pulling a dependency in the Trap contract
+    // Needed to avoid pulling a dependency in the Trap contract
     function mapLogsToEventLogs(Vm.Log[] memory logs) internal pure returns (EventLog[] memory) {
         EventLog[] memory eventLogs = new EventLog[](logs.length);
         for (uint256 i = 0; i < logs.length; i++) {
