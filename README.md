@@ -26,7 +26,7 @@ curl -L https://app.drosera.io/install | bash
 droseraup
 ```
 
-open the VScode preferences and Select `Soldity: Change workpace compiler version (Remote)`
+open the VScode preferences and Select `Soldity: Change workspace compiler version (Remote)`
 
 Select version `0.8.12`
 
