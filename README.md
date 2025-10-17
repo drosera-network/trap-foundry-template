@@ -32,6 +32,8 @@ Select version `0.8.12`
 
 ## Quick Start
 
+The following drosera commands set the `DROSERA_PRIVATE_KEY` environment variable in the command line but you can also use a `.env` file to store the private key of the account you want to use to deploy the trap.
+
 ### Hello World Trap
 
 The drosera.toml file is configured to deploy a simple "Hello, World!" trap. Ensure the drosera.toml file is set to the following configuration:
@@ -84,6 +86,28 @@ DROSERA_PRIVATE_KEY=0x.. drosera apply
 The TransferEventTrap is an example of how a Trap can parse event logs from a block and respond to a specific ERC-20 token transfer events.
 
 To deploy the Transfer Event Trap, uncomment the `transfer_event_trap` section in the `drosera.toml` file. Add the token address to the `tokenAddress` constant in the `TransferEventTrap.sol` file and then deploy the trap.
+
+### Alert Trap
+The AlertTrap is an example of how a Trap can parse event logs from a block and alert on a specific ERC-20 token transfer events.
+
+To deploy the Alert Trap, run the following commands:
+
+```bash
+forge build
+
+DROSERA_PRIVATE_KEY=0x.. drosera -c drosera.alerts.toml.j2 apply
+```
+
+> Note: The `.j2` file extension is used to indicate that the file is a jinja template and environment variables can be used in the file by wrapping them in `{{ env.VARIABLE_NAME }}`.
+
+Once configured properly, you can test the alert integration by running the following command;
+
+```bash
+DROSERA_PRIVATE_KEY=0x.. drosera -c drosera.alerts.toml.j2 send-test-alert --trap-name alert_trap
+```
+
+This will run the tests and you should see the alert being triggered in the console.
+
 
 ## Testing
 

@@ -1,0 +1,27 @@
+ethereum_rpc = "https://ethereum-hoodi-rpc.publicnode.com"
+drosera_rpc = "https://relay.hoodi.drosera.io"
+private_key = "{{ env.DROSERA_PRIVATE_KEY }}"
+
+[traps]
+
+[traps.alert_trap]
+path = "out/AlertTrap.sol/AlertTrap.json"
+min_number_of_operators = 1
+max_number_of_operators = 2
+block_sample_size = 1
+private_trap = true
+whitelist = [] # Provide a list of operator node addresses that are allowed to execute the trap
+
+[traps.alert_trap.alert]
+title = "High Token Transfer Alert"
+severity = "high"
+enabled = true
+labels = { "description" = "High transfer detected" }
+# This is the function that generates the abi to decode the alert output
+alert_output_sig = "decodeAlertOutput" 
+# This is the address of the user that can view the alert and configure the slack integration in https://app.drosera.io/alerts
+users = [{ address = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266" }] # Replace with a real address
+# This is the slack channel that will receive the alert 
+slack = { slack_channel = "#drosera-alerts" } # Replace with your slack channel name
+# This is the webhook endpoint that will receive the alert
+webhook = { webhook_url = "http://localhost:9090/api/v1/webhook", webhook_headers = { "Content-Type" = "application/json" } } # Replace with your webhook endpoint
