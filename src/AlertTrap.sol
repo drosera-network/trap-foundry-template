@@ -3,11 +3,17 @@ pragma solidity ^0.8.12;
 
 import {Trap, EventFilter, EventLog, EventFilterLib} from "drosera-contracts/Trap.sol";
 
-struct CollectOutput {
-    uint256 totalTransferAmount;
+struct TransferEvent {
+    address sender;
+    address receiver;
+    uint256 amount;
 }
 
-contract TransferEventTrap is Trap {
+struct CollectOutput {
+    TransferEvent[] transferEvents;
+}
+
+contract AlertTrap is Trap {
     using EventFilterLib for EventFilter;
 
     // @notice When using in production, token address will need to be set as a constant. 
@@ -23,31 +29,50 @@ contract TransferEventTrap is Trap {
         EventLog[] memory logs = getEventLogs();
         EventFilter[] memory filters = eventLogFilters();
 
-        uint256 totalTransferAmount = 0;
+        TransferEvent[] memory transferEvents = new TransferEvent[](logs.length);
+        uint count = 0;
+
         for (uint256 i = 0; i < logs.length; i++) {
             EventLog memory log = logs[i];
 
             // Check if the log matches the filter for Transfer events
             if (filters[0].matches(log)) {
-                (,, uint256 amount) = parseTransferEvent(log);
-                totalTransferAmount += amount;
+                (address from, address to, uint256 amount) = parseTransferEvent(log);
+
+                // Only add the transfer event if the amount is greater than 1000
+                if (amount > 1000) {
+                  transferEvents[count] = TransferEvent({
+                      sender: from,
+                      receiver: to,
+                      amount: amount
+                  });
+                  count++;
+                }
+            }
+        }
+
+        // Resize the transferEvents array to the actual count
+        TransferEvent[] memory resizedTransferEvents = new TransferEvent[](count);
+        for (uint256 i = 0; i < count; i++) {
+            if (transferEvents[i].amount > 0) {
+                resizedTransferEvents[i] = transferEvents[i];
             }
         }
 
         CollectOutput memory output = CollectOutput({
-            totalTransferAmount: totalTransferAmount
+            transferEvents: resizedTransferEvents
         });
 
         return abi.encode(output);
     }
 
-    function shouldRespond(
+    function shouldAlert(
         bytes[] calldata data
     ) external pure override returns (bool, bytes memory) {
-        CollectOutput memory output = abi.decode(data[0], (CollectOutput));
+        CollectOutput memory output = decodeAlertOutput(data[0]);
 
-       if (output.totalTransferAmount > 100) {
-            return (true, abi.encodePacked("Transfer amount exceeds threshold"));
+       if (output.transferEvents.length > 0) {
+            return (true, abi.encode(output));
         }
 
         return (false, "");
@@ -72,5 +97,11 @@ contract TransferEventTrap is Trap {
         from = address(uint160(uint256(log.topics[1])));
         to = address(uint160(uint256(log.topics[2])));
         amount = abi.decode(log.data, (uint256));
+    }
+
+    function decodeAlertOutput(
+        bytes memory data
+    ) public pure returns (CollectOutput memory output) {
+        return abi.decode(data, (CollectOutput));
     }
 }
