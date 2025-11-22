@@ -61,7 +61,7 @@ contract AlertTrapTest is Test {
         assertEq(output.transferEvents[0].receiver, address(0x456), "Receiver should be 0x456");
     }
 
-    // Neeeded to avoid pulling a dependency in the Trap contract
+    // Needed to avoid pulling a dependency in the Trap contract
     function mapLogsToEventLogs(Vm.Log[] memory logs) internal pure returns (EventLog[] memory) {
         EventLog[] memory eventLogs = new EventLog[](logs.length);
         for (uint256 i = 0; i < logs.length; i++) {
